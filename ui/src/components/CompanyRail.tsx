@@ -268,17 +268,17 @@ export function CompanyRail() {
 
   return (
     <div className="flex flex-col items-center w-[72px] shrink-0 h-full bg-background border-r border-border">
-      {/* DEH logo - aligned with top sections */}
+      {/* DEH icon - centered in rail */}
       <div className="flex items-center justify-center h-12 w-full shrink-0">
         <img
-          src="/brands/deh-logo-light.svg"
+          src="/brands/deh-icon-light.svg"
           alt="Dominion Equity"
-          className="dark:hidden h-6 w-auto"
+          className="dark:hidden h-8 w-8 object-contain"
         />
         <img
-          src="/brands/deh-logo-dark.svg"
+          src="/brands/deh-icon-dark.svg"
           alt="Dominion Equity"
-          className="hidden dark:block h-6 w-auto"
+          className="hidden dark:block h-8 w-8 object-contain"
         />
       </div>
 
