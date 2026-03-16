@@ -1,14 +1,14 @@
 {
   "id": "/",
-  "name": "Paperclip",
-  "short_name": "Paperclip",
+  "name": "Dominion Equity",
+  "short_name": "Dominion Equity",
   "description": "AI-powered project management and agent coordination platform",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#18181b",
-  "background_color": "#18181b",
+  "theme_color": "#170D33",
+  "background_color": "#170D33",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
