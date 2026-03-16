@@ -1078,6 +1078,10 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
   const configuredAgentId = nonEmpty(ctx.config.agentId);
   if (configuredAgentId && !nonEmpty(agentParams.agentId)) {
     agentParams.agentId = configuredAgentId;
+    // Prefix sessionKey with agent:<agentId>: so OpenClaw routes to the correct agent namespace
+    if (typeof agentParams.sessionKey === "string" && !agentParams.sessionKey.startsWith("agent:")) {
+      agentParams.sessionKey = `agent:${configuredAgentId}:${agentParams.sessionKey}`;
+    }
   }
 
   if (typeof agentParams.timeout !== "number") {
