@@ -367,9 +367,13 @@ function buildWakeText(payload: WakePayload, paperclipEnv: Record<string, string
     "",
     "Set these values in your run context:",
     ...envLines,
-    `PAPERCLIP_API_KEY=<token from ${claimedApiKeyPath}>`,
-    "",
-    `Load PAPERCLIP_API_KEY from ${claimedApiKeyPath} (the token you saved after claim-api-key).`,
+    ...(paperclipEnv.PAPERCLIP_API_KEY
+      ? [`PAPERCLIP_API_KEY=${paperclipEnv.PAPERCLIP_API_KEY}`]
+      : [
+          `PAPERCLIP_API_KEY=<token from ${claimedApiKeyPath}>`,
+          "",
+          `Load PAPERCLIP_API_KEY from ${claimedApiKeyPath} (the token you saved after claim-api-key).`,
+        ]),
     "",
     `api_base=${apiBaseHint}`,
     `task_id=${payload.taskId ?? ""}`,
@@ -1052,6 +1056,10 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
 
   const wakePayload = buildWakePayload(ctx);
   const paperclipEnv = buildPaperclipEnvForWake(ctx, wakePayload);
+  // Inject agent API key directly so multi-agent setups don't depend on a shared key file
+  if (ctx.authToken) {
+    paperclipEnv.PAPERCLIP_API_KEY = ctx.authToken;
+  }
   const wakeText = buildWakeText(wakePayload, paperclipEnv);
 
   const sessionKeyStrategy = normalizeSessionKeyStrategy(ctx.config.sessionKeyStrategy);
